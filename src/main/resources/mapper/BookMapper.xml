@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ypc.learn.redis.mapper.BookMapper">
+
+    <resultMap id="BaseResultMap" type="com.ypc.learn.redis.entity.Book">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="page_num" jdbcType="INTEGER" property="pageNum"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, title, author, price,page_num
+    </sql>
+
+    <insert id="insertBook" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
+        insert into book
+        (title,author,price,page_num)
+        values (#{title},#{author},#{price},#{pageNum})
+    </insert>
+
+    <!-- query by condition -->
+    <select id="queryByCondition" parameterType="com.ypc.learn.redis.entity.Book" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from book
+        <where>
+            <if test="title != null and title != ''">
+                title = #{title,jdbcType=VARCHAR}
+            </if>
+            <if test="price != null">
+                and price = #{price,jdbcType=DOUBLE}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author,jdbcType=VARCHAR}
+            </if>
+        </where>
+
+    </select>
+
+    <!-- query book list -->
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+    </select>
+
+    <!-- query by author name -->
+    <select id="queryByAuthorName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from book where author = #{author,jdbcType=VARCHAR}
+    </select>
+</mapper>
