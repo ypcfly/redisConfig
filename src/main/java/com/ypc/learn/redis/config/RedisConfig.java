@@ -28,7 +28,6 @@ public class RedisConfig {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
 
-
 	/**
 	 *  自定义cache manager  这个配置主要配合spring cache使用，和使用redisTemplate操作没有关系
 	 * @param redisConnectionFactory
@@ -48,7 +47,7 @@ public class RedisConfig {
 
 		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().serializeKeysWith(stringSerializationPair)
 														.serializeValuesWith(jsonSerializationPair)
-				                                        .disableCachingNullValues().entryTtl(Duration.ofSeconds(100));
+				                                        .disableCachingNullValues().entryTtl(Duration.ofSeconds(1000));
 
 		RedisCacheManager redisCacheManager = new RedisCacheManager(redisCacheWriter,redisCacheConfiguration);
 

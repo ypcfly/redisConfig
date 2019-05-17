@@ -126,7 +126,7 @@ public class RedisServiceImpl implements RedisService {
 	}
 
 
-	@Cacheable(value = "redis_cache_value",key = "#author")
+	@Cacheable(value = REDIS_CACHE_VALUE,key = "'" + BOOK_AUTHOR_KEY_PREFIX + "' + #author")
 	@Override
 	public List<Book> queryByAuthorName(String author) {
 		LOGGER.info(">>>> query by author name, author name={} <<<<",author);
