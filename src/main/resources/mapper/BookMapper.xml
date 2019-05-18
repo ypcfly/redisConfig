@@ -8,16 +8,17 @@
         <result column="author" jdbcType="VARCHAR" property="author"/>
         <result column="price" jdbcType="DOUBLE" property="price"/>
         <result column="page_num" jdbcType="INTEGER" property="pageNum"/>
+        <result column="language_type" jdbcType="INTEGER" property="languageType"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, title, author, price,page_num
+        id, title, author, price,page_num,language_type
     </sql>
 
     <insert id="insertBook" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
         insert into book
-        (title,author,price,page_num)
-        values (#{title},#{author},#{price},#{pageNum})
+        (title,author,price,page_num,language_type)
+        values (#{title},#{author},#{price},#{pageNum},#{languageType})
     </insert>
 
     <!-- query by condition -->
@@ -52,4 +53,38 @@
         <include refid="Base_Column_List"/>
         from book where author = #{author,jdbcType=VARCHAR}
     </select>
+
+    <select id="queryAllList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from book where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateById" parameterType="com.ypc.learn.redis.entity.Book">
+        update book
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="author != null and author != ''">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="pageNum != null">
+                page_num = #{pageNum,jdbcType=INTEGER},
+            </if>
+            <if test="languageType != null">
+                language_type = #{languageType,jdbcType=INTEGER},
+            </if>
+        </set>
+
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>

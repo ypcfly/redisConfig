@@ -14,4 +14,10 @@ public interface BookMapper {
 	int insertBook(Book book);
 
 	List<Book> queryByAuthorName(@Param("author") String author);
+
+    List<Book> queryAllList();
+
+	int deleteById(Integer id);
+
+	int updateById(Book book);
 }

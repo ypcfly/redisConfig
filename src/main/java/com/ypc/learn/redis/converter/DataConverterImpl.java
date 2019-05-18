@@ -15,11 +15,12 @@ public class DataConverterImpl implements DataConverter {
 	@Override
 	public Book convert(BookDTO bookDTO) {
 		Book book = new Book();
+		book.setId(bookDTO.getId());
 		book.setTitle(bookDTO.getTitle());
 		book.setPrice(bookDTO.getPrice());
 		book.setAuthor(bookDTO.getAuthor());
 		book.setPageNum(bookDTO.getPageNum());
-
+		book.setLanguageType(bookDTO.getLanguageType());
 		return book;
 	}
 }

@@ -17,6 +17,16 @@ public class BookDTO {
 
 	private String author;
 
+	private Integer languageType;
+
+	public Integer getLanguageType() {
+		return languageType;
+	}
+
+	public void setLanguageType(Integer languageType) {
+		this.languageType = languageType;
+	}
+
 	public Integer getId() {
 		return id;
 	}
