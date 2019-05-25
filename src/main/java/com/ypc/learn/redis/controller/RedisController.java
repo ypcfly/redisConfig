@@ -61,6 +61,12 @@ public class RedisController {
 		LOGGER.info(">>>> request parameters are :{} <<<<",gson.toJson(bookDTO));
 		Book book = converter.convert(bookDTO);
 
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			LOGGER.error(">>>> error message:{} <<<<",e.getMessage());
+//		}
+
 		return redisService.getAllList(book);
 	}
 

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @Date: 19-5-18 20:12
  * @Description:
  */
-@Component
+//@Component
 public class RedisRunner implements ApplicationRunner {
 
     private static final String book_list_key_prefix = "book_list_key_prefix_";

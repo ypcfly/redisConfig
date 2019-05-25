@@ -54,10 +54,10 @@ public class RedisServiceImpl implements RedisService {
 	@Override
 	public List<Book> getAllList(Book book) {
 		// redisTemplate
-		List<Book> bookList = (List<Book>) redisTemplate.opsForHash().get(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor());
-		if (CollectionUtils.isNotEmpty(bookList)) {
-			return bookList;
-		}
+//		List<Book> bookList = (List<Book>) redisTemplate.opsForHash().get(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor());
+//		if (CollectionUtils.isNotEmpty(bookList)) {
+//			return bookList;
+//		}
 
 //		// 使用StringRedisTemplate
 //		List<Book> bookList = (List<Book>) stringRedisTemplate.opsForHash().get(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor());
@@ -66,13 +66,13 @@ public class RedisServiceImpl implements RedisService {
 //			return bookList;
 //		}
 
-		bookList = bookMapper.queryByCondition(book);
+		List<Book> bookList = bookMapper.queryByCondition(book);
 
-		if (CollectionUtils.isNotEmpty(bookList)) {
-			redisTemplate.opsForHash().put(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor(),bookList);
-			// 使用StringRedisTemplate
+//		if (CollectionUtils.isNotEmpty(bookList)) {
+//			redisTemplate.opsForHash().put(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor(),bookList);
+//			// 使用StringRedisTemplate
 //			stringRedisTemplate.opsForHash().put(BOOK_LIST_KEY,BOOK_AUTHOR_KEY_PREFIX + book.getAuthor(),bookList);
-		}
+//		}
 		return bookList;
 	}
 
@@ -133,6 +133,4 @@ public class RedisServiceImpl implements RedisService {
 		List<Book> bookList = bookMapper.queryByAuthorName(author);
 		return bookList;
 	}
-
-
 }
